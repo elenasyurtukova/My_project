@@ -11,7 +11,7 @@ def filter_by_state(data: list, state: str = "EXECUTED") -> list:
 
 
 def sort_by_date(data: list, rev: bool = True) -> list:
-    """Сортирует список по дате"""
+    """Сортирует список по дате по убыванию"""
     sorted_data = sorted(data, key=lambda x: datetime.strptime(x["date"], "%Y-%m-%dT%H:%M:%S.%f"), reverse=rev)
     return sorted_data
 
