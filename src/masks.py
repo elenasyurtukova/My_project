@@ -4,8 +4,8 @@ def get_mask_card_number(card_number: int) -> str:
         if str(card_number).isdigit():
             mask_card_number = str(card_number)[0:4] + " " + str(card_number)[4:6] + "** **** " + str(card_number)[12:]
             return mask_card_number
-        return 'Ошибка, неверно введен номер карты'
-    return 'Ошибка, неверно введен номер карты'
+        return "Ошибка, неверно введен номер карты"
+    return "Ошибка, неверно введен номер карты"
 
 
 def get_mask_account(account_number: int) -> str:
@@ -14,8 +14,8 @@ def get_mask_account(account_number: int) -> str:
         if str(account_number).isdigit():
             mask_account_number = "**" + str(account_number)[len(str(account_number)) - 4:]
             return mask_account_number
-        return 'Ошибка, неверно введен номер счета'
-    return 'Ошибка, неверно введен номер счета'
+        return "Ошибка, неверно введен номер счета"
+    return "Ошибка, неверно введен номер счета"
 
 
 # print(get_mask_card_number(""))
