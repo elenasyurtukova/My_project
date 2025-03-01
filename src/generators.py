@@ -13,7 +13,7 @@ def transaction_descriptions(transactions: list) -> iter:
 def card_number_generator(start: int, end: int) -> str:
     # функция - генератор: выдает номера банковских карт в формате XXXX XXXX XXXX XXXX
     for num in range(start, end):
-        if start > end or end > 10 ** 16:
+        if start >= end or end > 10 ** 16:
             break
         else:
             str_number_card = (16 - len(str(num))) * '0' + str(num)
@@ -21,6 +21,8 @@ def card_number_generator(start: int, end: int) -> str:
                            ' ' + str_number_card[4:8] +
                            ' ' + str_number_card[8:12] +
                            ' ' + str_number_card[12:16])
+            if number_card == '0000 0000 0000 0000':
+                continue
             yield number_card
 
 
@@ -114,3 +116,6 @@ transactions = (
 
 # for card_number in card_number_generator(9999999999999995, 10000000000000000):
 #     print(card_number)
+
+for card_number in card_number_generator(5, 5):
+     print(card_number)
