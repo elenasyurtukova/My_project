@@ -1,13 +1,13 @@
-def filter_by_currency(transactions: list, cor: str = "USD") -> iter:
+def filter_by_currency(transactions: list, cur: str = "USD") -> iter:
     # функция: возвращает итератор для транзакций согласно заданной валюте
-    cor_transactions = filter(lambda x: x["operationAmount"]["currency"]["code"] == cor, transactions)
-    return cor_transactions
+    cur_transactions = filter(lambda x: x["operationAmount"]["currency"]["code"] == cur, transactions)
+    return cur_transactions
 
 
 def transaction_descriptions(transactions: list) -> iter:
     # функция: принимает список словарей с транзакциями и возвращает описание каждой операции
-    descriptions = (trans["description"] for trans in transactions)
-    return descriptions
+    for trans in transactions:
+        yield trans["description"]
 
 
 def card_number_generator(start: int, end: int) -> str:
@@ -26,8 +26,7 @@ def card_number_generator(start: int, end: int) -> str:
             yield number_card
 
 
-transactions = (
-    [
+transactions = [
         {
             "id": 939719570,
             "state": "EXECUTED",
@@ -103,12 +102,11 @@ transactions = (
             "from": "Visa Platinum 1246377376343588",
             "to": "Счет 14211924144426031657"
         }
-    ]
-)
+]
 
-# usd_transactions = filter_by_currency(transactions, )
-# for _ in range(2):
-#     print(next(usd_transactions))
+usd_transactions = filter_by_currency(transactions, "RUB")
+for _ in range(2):
+    print(next(usd_transactions))
 
 # descriptions = transaction_descriptions(transactions)
 # for _ in range(5):
@@ -117,5 +115,5 @@ transactions = (
 # for card_number in card_number_generator(9999999999999995, 10000000000000000):
 #     print(card_number)
 
-for card_number in card_number_generator(5, 5):
-     print(card_number)
+# for card_number in card_number_generator(5, 5):
+#      print(card_number)
