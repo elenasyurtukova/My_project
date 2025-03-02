@@ -1,7 +1,10 @@
 def filter_by_currency(transactions: list, cur: str = "USD") -> iter:
     # функция: возвращает итератор для транзакций согласно заданной валюте
-    cur_transactions = filter(lambda x: x["operationAmount"]["currency"]["code"] == cur, transactions)
-    return cur_transactions
+    if cur in ["RUB", "USD"]:
+        cur_transactions = filter(lambda x: x["operationAmount"]["currency"]["code"] == cur, transactions)
+        return cur_transactions
+    else:
+        return "Ошибка: неверная валюта транзакции"
 
 
 def transaction_descriptions(transactions: list) -> iter:
@@ -104,9 +107,9 @@ transactions = [
         }
 ]
 
-usd_transactions = filter_by_currency(transactions, "RUB")
-for _ in range(2):
-    print(next(usd_transactions))
+# usd_transactions = filter_by_currency(transactions, "EUR")
+# for _ in range(2):
+#     print(next(usd_transactions))
 
 # descriptions = transaction_descriptions(transactions)
 # for _ in range(5):
