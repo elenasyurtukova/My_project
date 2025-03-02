@@ -1,6 +1,8 @@
 import pytest
 
-from src.generators import filter_by_currency, transaction_descriptions, card_number_generator
+from src.generators import (card_number_generator, filter_by_currency,
+                            transaction_descriptions)
+
 
 @pytest.fixture()
 def transactions():
@@ -161,11 +163,13 @@ def test_card_number_generator(start = 1, end = 3):
     assert next(generator) == '0000 0000 0000 0001'
     assert next(generator) == '0000 0000 0000 0002'
 
-def test_card_number_generator(start = 9999, end = 10002):
+def test_card_number_generator_new_interval(start = 9999, end = 10002):
     generator = card_number_generator(start, end)
     assert next(generator) == '0000 0000 0000 9999'
     assert next(generator) == '0000 0000 0001 0000'
     assert next(generator) == '0000 0000 0001 0001'
+
+
 
 
 
