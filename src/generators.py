@@ -115,8 +115,8 @@ transactions = [
 # for _ in range(5):
 #     print(next(descriptions))
 
-# for card_number in card_number_generator(9999999999999995, 10000000000000000):
-#     print(card_number)
+for card_number in card_number_generator(1, 3):
+    print(card_number)
 
 # for card_number in card_number_generator(5, 5):
 #      print(card_number)

@@ -156,5 +156,16 @@ def expected_list():
 def test_transaction_descriptions(transactions, expected_list):
     assert list(transaction_descriptions(transactions)) == expected_list
 
+def test_card_number_generator(start = 1, end = 3):
+    generator = card_number_generator(start, end)
+    assert next(generator) == '0000 0000 0000 0001'
+    assert next(generator) == '0000 0000 0000 0002'
+
+def test_card_number_generator(start = 9999, end = 10002):
+    generator = card_number_generator(start, end)
+    assert next(generator) == '0000 0000 0000 9999'
+    assert next(generator) == '0000 0000 0001 0000'
+    assert next(generator) == '0000 0000 0001 0001'
+
 
 
