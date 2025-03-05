@@ -1,6 +1,5 @@
 def filter_by_currency(transactions: list, cur: str = "USD"):
     """функция: возвращает итератор для транзакций согласно заданной валюте"""
-
     cur_transactions = filter(lambda x: x["operationAmount"]["currency"]["code"] == cur, transactions)
     return cur_transactions
 
