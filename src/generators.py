@@ -1,20 +1,18 @@
 def filter_by_currency(transactions: list, cur: str = "USD"):
-    # функция: возвращает итератор для транзакций согласно заданной валюте
-    if cur in ["RUB", "USD"]:
-        cur_transactions = filter(lambda x: x["operationAmount"]["currency"]["code"] == cur, transactions)
-        return cur_transactions
-    else:
-        return "Ошибка: неверная валюта транзакции"
+    """функция: возвращает итератор для транзакций согласно заданной валюте"""
+
+    cur_transactions = filter(lambda x: x["operationAmount"]["currency"]["code"] == cur, transactions)
+    return cur_transactions
 
 
 def transaction_descriptions(transactions: list):
-    # функция: принимает список словарей с транзакциями и возвращает описание каждой операции
+    """функция: принимает список словарей с транзакциями и возвращает описание каждой операции"""
     for trans in transactions:
         yield trans["description"]
 
 
 def card_number_generator(start: int, end: int):
-    # функция - генератор: выдает номера банковских карт в формате XXXX XXXX XXXX XXXX
+    """функция - генератор: выдает номера банковских карт в формате XXXX XXXX XXXX XXXX"""
     for num in range(start, end):
         if start >= end or end > 10**16:
             break
