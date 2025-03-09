@@ -25,13 +25,14 @@ def log(filename: str | None = None) -> Callable:
     return wrapped
 
 
-@log(filename="mylog.txt")
-# @log()
-def my_function(x: int|float, y: int|float) -> int|float:
-    """функция, складывает 2 числа"""
-    return x / y
+# @log(filename="mylog.txt")
+# # @log()
+# def my_function(x: int | float, y: int | float) -> int | float:
+#     """функция, делит 2 числа"""
+#     return x / y
 
-my_function(2,0)
+
+# my_function(2,0)
 
 # Ожидаемый вывод в лог-файл mylog.txt при успешном выполнении:
 # my_function ok

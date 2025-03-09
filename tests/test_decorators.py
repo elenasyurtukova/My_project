@@ -1,6 +1,7 @@
-from src.decorators import log
-import tempfile
 import os
+import tempfile
+
+from src.decorators import log
 
 
 def test_summ_function_from_file():
@@ -16,16 +17,17 @@ def test_summ_function_from_file():
 
         # Вызываем функцию
         my_function(1, 2)
-        my_function('1', 2)
+        my_function("1", 2)
 
         # Проверяем содержимое временного файла
-        with open(filename, 'r') as file:
+        with open(filename, "r") as file:
             logs = file.read()
             assert "my_function ok: 3" in logs
             assert "my_function error: TypeError. Inputs: ('1', 2), {}" in logs
     finally:
         # Удаляем временный файл
         os.remove(filename)
+
 
 def test_devision_function_from_file():
     # Тестирование с временным файлом
@@ -43,7 +45,7 @@ def test_devision_function_from_file():
         my_function(2, 0)
 
         # Проверяем содержимое временного файла
-        with open(filename, 'r') as file:
+        with open(filename, "r") as file:
             logs = file.read()
             assert "my_function ok: 3" in logs
             assert "my_function error: ZeroDivisionError. Inputs: (2, 0), {}" in logs
@@ -77,6 +79,6 @@ def test_my_function_empty(capsys):
     def my_function(x, y):
         return x / y
 
-    my_function(2,0)
+    my_function(2, 0)
     captured = capsys.readouterr()
     assert captured.out == "my_function error: ZeroDivisionError. Inputs: (2, 0), {}\n"
