@@ -8,6 +8,7 @@ def log(filename: str | None = None) -> Callable:
             try:
                 result = function(*args, **kwargs)
                 log_mess = f"{function.__name__} ok: {function(*args, **kwargs)}"
+                return result
             except Exception as e:
                 log_mess = f"{function.__name__} error: TypeError. Inputs: {args}, {kwargs}"
             if filename:
@@ -15,16 +16,15 @@ def log(filename: str | None = None) -> Callable:
                     file.write(f"{log_mess}\n")
             else:
                 print(log_mess)
-            return result
         return inner
     return wrapped
 
-@log(filename="mylog.txt")
-# @log()
+# @log(filename="mylog.txt")
+@log()
 def my_function(x, y):
     return x + y
 
-my_function(3, 2)
+my_function()
 
 # Ожидаемый вывод в лог-файл mylog.txt при успешном выполнении:
 # my_function ok
