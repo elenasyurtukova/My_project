@@ -1,30 +1,37 @@
 from functools import wraps
 from typing import Any, Callable
 
+
 def log(filename: str | None = None) -> Callable:
+    """Декоратор, логирует работу функции и ее результат в файл или в консоль"""
+
     def wrapped(function: Callable) -> Callable:
         @wraps(function)
         def inner(*args: Any, **kwargs: Any) -> Any:
             try:
-                result = function(*args, **kwargs)
                 log_mess = f"{function.__name__} ok: {function(*args, **kwargs)}"
-                return result
-            except Exception as e:
+            except Exception:
                 log_mess = f"{function.__name__} error: TypeError. Inputs: {args}, {kwargs}"
             if filename:
                 with open(filename, "a", encoding="utf-8") as file:
                     file.write(f"{log_mess}\n")
             else:
                 print(log_mess)
+            return log_mess
+
         return inner
+
     return wrapped
+
 
 # @log(filename="mylog.txt")
 @log()
-def my_function(x, y):
+def my_function(x: int|float, y: int|float) -> int|float:
+    """функция, складывает 2 числа"""
     return x + y
 
-my_function()
+
+# my_function()
 
 # Ожидаемый вывод в лог-файл mylog.txt при успешном выполнении:
 # my_function ok
