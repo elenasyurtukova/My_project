@@ -9,29 +9,29 @@ def log(filename: str | None = None) -> Callable:
         @wraps(function)
         def inner(*args: Any, **kwargs: Any) -> Any:
             try:
+                function(*args, **kwargs)
                 log_mess = f"{function.__name__} ok: {function(*args, **kwargs)}"
-            except Exception:
-                log_mess = f"{function.__name__} error: TypeError. Inputs: {args}, {kwargs}"
+
+            except Exception as e:
+                log_mess = f"{function.__name__} error: {type(e).__name__}. Inputs: {args}, {kwargs}"
             if filename:
                 with open(filename, "a", encoding="utf-8") as file:
                     file.write(f"{log_mess}\n")
             else:
                 print(log_mess)
-            return log_mess
 
         return inner
 
     return wrapped
 
 
-# @log(filename="mylog.txt")
-@log()
+@log(filename="mylog.txt")
+# @log()
 def my_function(x: int|float, y: int|float) -> int|float:
     """функция, складывает 2 числа"""
-    return x + y
+    return x / y
 
-
-# my_function()
+my_function(2,0)
 
 # Ожидаемый вывод в лог-файл mylog.txt при успешном выполнении:
 # my_function ok
