@@ -17,13 +17,14 @@ def test_summ_function_from_file():
 
         # Вызываем функцию
         my_function(1, 2)
-        my_function("1", 2)
+        my_function()
 
         # Проверяем содержимое временного файла
         with open(filename, "r") as file:
             logs = file.read()
             assert "my_function ok: 3" in logs
-            assert "my_function error: TypeError. Inputs: ('1', 2), {}" in logs
+            assert "my_function error: TypeError. Inputs: (), {}" in logs
+
     finally:
         # Удаляем временный файл
         os.remove(filename)
