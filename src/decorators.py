@@ -11,14 +11,20 @@ def log(filename: str | None = None) -> Callable:
             try:
                 result = function(*args, **kwargs)
                 log_mess = f"{function.__name__} ok: {result}"
+                if filename:
+                    with open(filename, "a", encoding="utf-8") as file:
+                        file.write(f"{log_mess}\n")
+                else:
+                    print(log_mess)
             except Exception as e:
                 result = None
                 log_mess = f"{function.__name__} error: {type(e).__name__}. Inputs: {args}, {kwargs}"
-            if filename:
-                with open(filename, "a", encoding="utf-8") as file:
-                    file.write(f"{log_mess}\n")
-            else:
-                print(log_mess)
+                if filename:
+                    with open(filename, "a", encoding="utf-8") as file:
+                        file.write(f"{log_mess}\n")
+                else:
+                    print(log_mess)
+                raise Exception(f"Ошибка: {type(e).__name__}")
             return result
 
         return inner
@@ -27,13 +33,12 @@ def log(filename: str | None = None) -> Callable:
 
 
 # @log(filename="mylog.txt")
-# # @log()
+# @log()
 # def my_function(x: int | float, y: int | float) -> int | float:
 #     """функция, делит 2 числа"""
-#     return x / y
+#     return x + y
 #
-# my_function(10,5)
-
+# my_function("1",6)
 # Ожидаемый вывод в лог-файл mylog.txt при успешном выполнении:
 # my_function ok
 # Ожидаемый вывод при ошибке:

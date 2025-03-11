@@ -1,10 +1,11 @@
 import os
 import tempfile
+import pytest
 
 from src.decorators import log
 
 
-def test_summ_function_from_file():
+def test_summ_function_from_file_success():
     # Тестирование с временным файлом
     with tempfile.NamedTemporaryFile(delete=False) as temp_file:
         filename = temp_file.name
@@ -17,13 +18,11 @@ def test_summ_function_from_file():
 
         # Вызываем функцию
         my_function(1, 2)
-        my_function()
 
         # Проверяем содержимое временного файла
         with open(filename, "r") as file:
             logs = file.read()
             assert "my_function ok: 3" in logs
-            assert "my_function error: TypeError. Inputs: (), {}" in logs
 
     finally:
         # Удаляем временный файл
@@ -43,7 +42,8 @@ def test_devision_function_from_file():
 
         # Вызываем функцию
         my_function(9, 3)
-        my_function(2, 0)
+        with pytest.raises(Exception):
+            my_function(2, 0)
 
         # Проверяем содержимое временного файла
         with open(filename, "r") as file:
@@ -70,7 +70,8 @@ def test_my_function_error(capsys):
     def my_function(x, y):
         return x + y
 
-    my_function("1", 6)
+    with pytest.raises(Exception):
+        my_function("1", 6)
     captured = capsys.readouterr()
     assert captured.out == "my_function error: TypeError. Inputs: ('1', 6), {}\n"
 
@@ -80,6 +81,31 @@ def test_my_function_empty(capsys):
     def my_function(x, y):
         return x / y
 
-    my_function(2, 0)
+    with pytest.raises(Exception):
+        my_function(2, 0)
+
     captured = capsys.readouterr()
     assert captured.out == "my_function error: ZeroDivisionError. Inputs: (2, 0), {}\n"
+
+
+def test_stdout_success(capsys):
+    @log()
+    def my_function(x, y):
+        return x + y
+
+    result = my_function(1, 6)
+    assert result == 7
+    captured = capsys.readouterr()
+    assert captured.out == "my_function ok: 7\n"
+
+
+def test_stdout_error(capsys):
+    @log()
+    def my_function(x, y):
+        return x + y
+
+    with pytest.raises(Exception):
+        my_function("1", 6)
+
+    captured = capsys.readouterr()
+    assert captured.out == "my_function error: TypeError. Inputs: ('1', 6), {}\n"
