@@ -3,7 +3,7 @@ import json
 import requests
 from dotenv import load_dotenv
 
-def info_transaction(transaction:dict)->float:
+def get_amount_in_rub(transaction:dict)->float:
     """Функция принимает транзакцию и возвращает сумму транзакции в рублях"""
     if transaction['operationAmount']['currency']['code'] == 'RUB':
         result = float(transaction['operationAmount']['amount'])
@@ -19,11 +19,15 @@ def info_transaction(transaction:dict)->float:
             "apikey": API_Key
         }
         response = requests.get(url, headers=headers, data=payload)
+        print(response.status_code)
+        print(response.json())
+        if response.status_code != 200:
+            raise ValueError(f"Failed to get currency rate")
         result = round(response.json()['result'],2)
     return result
 
 if __name__=='__main__':
-    print(info_transaction({
+    print(get_amount_in_rub({
         "id": 854048120,
         "state": "EXECUTED",
         "date": "2019-03-29T10:57:20.635567",
@@ -31,7 +35,7 @@ if __name__=='__main__':
             "amount": "30234.99",
             "currency": {
                 "name": "USD",
-                "code": "USD"
+                "code": ""
             }
         },
         "description": "Перевод с карты на счет",
