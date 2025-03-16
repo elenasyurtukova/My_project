@@ -1,7 +1,7 @@
 import json
 
 
-def get_transactions(path:str)->list[dict]:
+def get_transactions(path: str) -> list[dict]:
     """Функция, возвращает список словарей с данными о финансовых транзакциях"""
     try:
         with open(path, encoding="utf-8") as data_file:
@@ -15,5 +15,6 @@ def get_transactions(path:str)->list[dict]:
         print("Файл не найден")
         return []
 
-if __name__=='__main__':
-    print(get_transactions('../data/operations.json'))
+
+if __name__ == "__main__":
+    print(get_transactions("../data/operations.json"))
