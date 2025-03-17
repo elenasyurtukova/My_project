@@ -19,7 +19,7 @@ def get_amount_in_rub(transaction: dict) -> float:
         headers = {"apikey": API_Key}
         response = requests.get(url, headers=headers, data=payload)
         if response.status_code != 200:
-            raise ValueError(f"Failed to get currency rate")
+            raise ValueError("Failed to get currency rate")
         result = round((response.json()["result"]), 2)
     return result
 
