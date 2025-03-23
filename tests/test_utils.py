@@ -43,10 +43,10 @@ class TestJsonReader(unittest.TestCase):
         result = get_transactions("path/to/file.json")
         self.assertEqual(result, [])
 
-    @patch('builtins.open', side_effect=FileNotFoundError)
+    @patch("builtins.open", side_effect=FileNotFoundError)
     def test_file_not_found(self, mock_open):
         # Вызываю свою функцию и проверяю, что она возвращает пустой список
-        result = get_transactions('path/to/nonexistent/file.json')
+        result = get_transactions("path/to/nonexistent/file.json")
         self.assertEqual(result, [])
 
 
