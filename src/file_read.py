@@ -28,8 +28,10 @@ def func_read_file_excel(path: str) -> list:
         return []
 
 
-if __name__ == "__main__":
-    print(func_read_file_csv("../data/transactions.csv"))
+# if __name__ == "__main__":
+#     data = func_read_file_csv("../data/transactions.csv")
+#     sorted_data = sorted(data, key=lambda trans: trans['amount'])
+#     print(sorted_data)
     # [{'id': '650703', 'state': 'EXECUTED', 'date': '2023-09-05T11:30:32Z',
     # 'amount': '16210', 'currency_name': 'Sol', 'currency_code': 'PEN',
     # 'from': 'Счет 58803664561298323391', 'to': 'Счет 39745660563456619397',

@@ -82,6 +82,7 @@ transactions = [
 # usd_transactions = filter_by_currency(transactions, "EUR")
 # for _ in range(2):
 #     print(next(usd_transactions))
+# print(usd_transactions)
 
 # descriptions = transaction_descriptions(transactions)
 # for _ in range(5):

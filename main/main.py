@@ -1,6 +1,9 @@
 from src.file_read import func_read_file_csv, func_read_file_excel
-from src.processing import filter_by_state
+from src.generators import filter_by_currency
+from src.processing import filter_by_state, sort_by_date
+from src.searching import search_by_string
 from src.utils import get_transactions
+from src.widget import get_date, mask_account_card
 
 punkt = int(input('''Привет! Добро пожаловать в программу работы с банковскими транзакциями.
 Выберите необходимый пункт меню:
@@ -32,3 +35,64 @@ elif punkt == 2:
 elif punkt == 3:
     data_of_trans = func_read_file_excel("../data/transactions_excel.xlsx")
 filtered_transactions = filter_by_state(data_of_trans, state = status)
+print(filtered_transactions)
+
+filter_date = input('Отсортировать операции по дате? Да/Нет\n')
+if filter_date.lower() == 'да':
+    filtered_transactions_date = sort_by_date(filtered_transactions)
+else:
+    filtered_transactions_date = filtered_transactions
+print(filtered_transactions_date)
+
+filter_amount = input('Отсортировать по возрастанию или по убыванию\n')
+if filter_amount.lower() == 'по возрастанию':
+    sorted_transactions = sorted(filtered_transactions_date, key=lambda trans: trans['amount'])
+else:
+    sorted_transactions = sorted(filtered_transactions_date, key=lambda trans: trans['amount'], reverse=True)
+print(sorted_transactions)
+
+filter_currency = input('Выводить только рублевые тразакции? Да/Нет\n')
+if filter_currency.lower() == 'да':
+    transactions_cur = []
+    for trans in sorted_transactions:
+        if trans['currency_code']  == 'RUB':
+            transactions_cur.append(trans)
+else:
+    transactions_cur = sorted_transactions
+
+filter_string = input('Отфильтровать список транзакций по определенному словy в описании? Да/Нет\n')
+if filter_string.lower() == 'да':
+    string_for_filter = input('Введите слово для фильтрации, иначе фильтруем "Переводы"')
+    if string_for_filter.lower() != "перевод":
+        transactions_filtered_string = search_by_string(transactions_cur, string_for_filter)
+    else:
+        transactions_filtered_string = search_by_string(transactions_cur)
+else:
+    transactions_filtered_string = transactions_cur
+
+len_list = len(transactions_filtered_string)
+result = []
+for trans in transactions_filtered_string:
+    date = get_date(trans['date'])
+    operation = trans['description']
+    sum = trans['amount']
+    cur_name = trans['currency_name']
+    mask_to = mask_account_card(trans['to'])
+    if 'from' in trans.keys():
+        data_user = str(trans['from'])
+        mask_from = mask_account_card(data_user)
+        result_trans = (f'{date} {operation},'
+                    f'{mask_from} -> {mask_to} '
+                    f'Сумма: {sum} {cur_name}'
+
+                    )
+    else:
+        result_trans = (f'{date} {operation},'
+                        f'{mask_to} '
+                        f'Сумма: {sum} {cur_name}'
+
+                        )
+    result.append(result_trans)
+print(f'Всего банковских операций в выборке: {len_list}')
+print(result)
+
