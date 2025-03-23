@@ -3,8 +3,9 @@ import re
 def search_by_string(list_of_dict:list, search_string:str = 'Перевод')->list:
     """Функция фильтрует список словарей по строке в описании  """
     filtered_list = []
+    str_search = search_string.lower()
     for trans in list_of_dict:
-        match = re.search(search_string, trans['description'])
+        match = re.search(str_search, trans['description'].lower())
         if match != None:
             filtered_list.append(trans)
     return filtered_list
