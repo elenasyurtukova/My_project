@@ -1,12 +1,13 @@
 import datetime
+from collections import defaultdict
+from datetime import datetime
 
 from src.file_read import func_read_file_csv, func_read_file_excel
 from src.processing import filter_by_state, sort_by_date
 from src.searching import search_by_string
 from src.utils import get_transactions
 from src.widget import get_date, mask_account_card
-from collections import defaultdict
-from datetime import datetime
+
 
 def main():
     """Функция основной логики проекта: взаимодействие с пользователем"""
