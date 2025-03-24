@@ -32,5 +32,6 @@ def get_mask_account(account_number: int | str) -> str:
     logger.error("Ошибка, количество цифр в номере счета не равно 20")
     return "Ошибка, неверно введен номер счета"
 
+
 # print(get_mask_card_number(""))
 # print(get_mask_account(''))

@@ -27,4 +27,5 @@ def get_date(date: str) -> str:
     formated_date = date[8:10] + "." + date[5:7] + "." + date[:4]
     return formated_date
 
+
 # print(mask_account_card('Discover 0329774489991288'))

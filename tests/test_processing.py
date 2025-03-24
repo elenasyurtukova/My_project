@@ -52,10 +52,10 @@ def test_filter_by_state(data, state, expected):
         (
             False,
             [
-                {'id': 939719570, 'state': 'EXECUTED', 'date': '30.06.2018'},
-                {'id': 594226727, 'state': 'CANCELED', 'date': '12.09.2018'},
-                {'id': 615064591, 'state': 'CANCELED', 'date': '14.10.2018'},
-                {'id': 41428829, 'state': 'EXECUTED', 'date': '03.07.2019'},
+                {"id": 939719570, "state": "EXECUTED", "date": "30.06.2018"},
+                {"id": 594226727, "state": "CANCELED", "date": "12.09.2018"},
+                {"id": 615064591, "state": "CANCELED", "date": "14.10.2018"},
+                {"id": 41428829, "state": "EXECUTED", "date": "03.07.2019"},
             ],
         ),
     ],
