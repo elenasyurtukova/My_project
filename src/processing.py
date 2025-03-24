@@ -1,5 +1,7 @@
 from datetime import datetime
 
+from src.widget import get_date
+
 
 def filter_by_state(data: list, state: str = "EXECUTED") -> list:
     """Фильтрует список словарей по ключу state"""
@@ -14,8 +16,8 @@ def sort_by_date(data: list, rev: bool = True) -> list:
     """Сортирует список по дате по убыванию"""
     for elem in data:
         value = elem['date']
-        elem['date'] = value[:10]
-    sorted_data = sorted(data, key=lambda x: datetime.strptime(x["date"], "%Y-%m-%d"), reverse=rev)
+        elem['date'] = get_date(value[:10])
+    sorted_data = sorted(data, key=lambda x: datetime.strptime(x["date"], "%d.%m.%Y"), reverse=rev)
     return sorted_data
 
 
