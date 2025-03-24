@@ -8,7 +8,7 @@ from src.file_read import func_read_file_csv, func_read_file_excel
 
 class TestReadCSVFile(unittest.TestCase):
     def test_valid_data(self):
-        mock_data = ("id;state;date;amount;currency_name;currency_code;from;to;description\n1;EXECUTED;2023-09-05T11:30:32Z;16210;Sol;PEN;Счет 58803664561298323391;Счет 39745660563456619397;Перевод организации")
+        mock_data = "id;state;date;amount;currency_name;currency_code;from;to;description\n1;EXECUTED;2023-09-05T11:30:32Z;16210;Sol;PEN;Счет 58803664561298323391;Счет 39745660563456619397;Перевод организации"
         with patch("builtins.open", mock_open(read_data=mock_data)):
             result = func_read_file_csv("transactions.csv")
             self.assertEqual(len(result), 1)
